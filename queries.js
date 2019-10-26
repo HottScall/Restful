@@ -1,12 +1,11 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'me',
-  host: 'local host',
+  host: 'localhost',
   database: 'api',
   password: 'password',
-  port: 5432;
+  port: 5432,
 })
-
 const getUsers = (request, response) => {
   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
     if (error) {
@@ -16,8 +15,8 @@ const getUsers = (request, response) => {
   })
 }
 
-const getUsersById = (request, response) => {
-  const id = parseINT(request.params.id)
+const getUserById = (request, response) => {
+  const id = parseInt(request.params.id)
 
   pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
     if (error) {
@@ -37,12 +36,12 @@ const createUser = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`User added with ID: ${result.insertID}`)
+    response.status(201).send(`User added with ID: ${result.insertId}`)
   })
 }
 
 const updateUser = (request, response) => {
-  const id = parseINT(request.params.id)
+  const id = parseInt(request.params.id)
   const {
     name,
     email
@@ -55,26 +54,25 @@ const updateUser = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`USER modified with ID: ${id}`)
+      response.status(200).send(`User modified with ID: ${id}`)
     }
   )
 }
 
-const deleteUser = (request, response) =>{
-  const id = parseINT(request.params.id)
+const deleteUser = (request, response) => {
+  const id = parseInt(request.params.id)
 
-  pool.query('DELETE FROM users WHERE ID = $1', [id], (error, results) =>{
-    if (error){
+  pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+    if (error) {
       throw error
     }
-    response.status(200).send(`USER deleted with ID: ${id}`)
+    response.status(200).send(`User deleted with ID: ${id}`)
   })
 }
 
-
 module.exports = {
   getUsers,
-  getUsersById,
+  getUserById,
   createUser,
   updateUser,
   deleteUser,
