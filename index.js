@@ -6,7 +6,7 @@ const port = 3000
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
-    extended: true;
+    extended: true,
   })
 )
 
@@ -15,5 +15,5 @@ app.get('/', (request, response) => {
 })
 
 app.listen(port, () => {
-  console.log('app running on port ${port}')
+  console.log(`app running on port ${3000}`)
 })
