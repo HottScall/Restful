@@ -15,12 +15,12 @@ app.get('/', (request, response) => {
   response.json ({ info: 'Node.js, Express, and Postgres API' })
 })
 
-app.listen(port, () => {
-  console.log(`app running on port ${3000}`)
-})
-
 app.get('/users', db.getUsers)
 app.get('/users/:id', db.getUsersById)
 app.post('/users', db.createUser)
 app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
+
+app.listen(port, () => {
+  console.log(`app running on port ${3000}`)
+})
